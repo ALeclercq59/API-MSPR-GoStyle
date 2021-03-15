@@ -1,11 +1,15 @@
 package com.gostyle.controllers;
 
+import com.gostyle.entities.Coupon;
 import com.gostyle.entities.User;
 import com.gostyle.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -21,17 +25,40 @@ public class UserController {
     }
 
     @GetMapping({"", "/all"})
-    public List<User> getAllUsers() {
-        return service.getAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = service.getAll();
+        if (users != null) {
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{id}")
-    public User getOneUser(@PathVariable("id") Long id) {
-        return service.read(id);
+    public ResponseEntity<User> getOneUser(@PathVariable("id") Long id) {
+        User user = service.read(id);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @PutMapping("/addCoupon/user={idUser}&coupon={idCoupon}")
-    public void addCouponForUser(@PathVariable("idUser") Long idUser, @PathVariable("idCoupon") Long idCoupon) {
+    @GetMapping("/identification")
+    public ResponseEntity<User> getUserByEmailAndPassword(@PathParam("email") String email, @PathParam("password") String password) {
+        User user = service.findUserByMailAndPassword(email, password);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/addCoupon")
+    public void addCouponForUser(@PathParam("idUser") Long idUser, @PathParam("idCoupon") Long idCoupon) {
         service.addCouponForUser(idUser, idCoupon);
     }
 }

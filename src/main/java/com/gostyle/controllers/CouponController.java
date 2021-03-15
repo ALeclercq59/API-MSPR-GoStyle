@@ -26,8 +26,14 @@ public class CouponController {
     }
 
     @GetMapping({"", "/all"})
-    public List<Coupon> getAllCoupons() {
-        return service.getAll();
+    public ResponseEntity<List<Coupon>> getAllCoupons() {
+        List<Coupon> coupons = service.getAll();
+        if (coupons != null) {
+            return new ResponseEntity<>(coupons, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{id}")
@@ -37,13 +43,19 @@ public class CouponController {
             return new ResponseEntity<>(coupon, HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>(coupon, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/info={info}")
-    public List<Coupon> getAllCouponsByInfo(@PathVariable("info") Long info) {
-        return service.getAllByInfo(info);
+    public ResponseEntity<List<Coupon>> getAllCouponsByInfo(@PathVariable("info") Long info) {
+        List<Coupon> coupons = service.getAllByInfo(info);
+        if (coupons != null) {
+            return new ResponseEntity<>(coupons, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
 
