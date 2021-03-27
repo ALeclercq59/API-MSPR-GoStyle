@@ -64,7 +64,7 @@ public class UserController {
         service.addCouponForUser(idUser, idCoupon);
     }
 
-    @PutMapping("/addUser")
+    @PostMapping("/add")
     public void addUser(
             @PathParam("mail") String mail,
             @PathParam("password") String password,
