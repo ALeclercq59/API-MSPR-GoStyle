@@ -82,4 +82,9 @@ class UserServiceImplTest {
     void addCouponForUser() {
         service.addCouponForUser(2L, 3L);
     }
+
+    @Test
+    void addUser(){
+        service.addUser("test","test","test","test");
+    }
 }
