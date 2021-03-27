@@ -13,4 +13,5 @@ public interface UserService {
     void delete(Long id);
     User findUserByMailAndPassword(String mail, String password);
     void addCouponForUser(Long idUser, Long idCoupon);
+    void addUser(String mail, String password, String name, String surname);
 }

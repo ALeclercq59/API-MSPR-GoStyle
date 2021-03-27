@@ -72,4 +72,13 @@ public class UserServiceImpl implements UserService{
         couponService.update(coupon);
         update(user);
     }
+
+    public void addUser(String mail, String password, String name, String surname){
+        User user = new User();
+        user.setMail(mail);
+        user.setPassword(password);
+        user.setName(name);
+        user.setSurname(surname);
+        create(user);
+    }
 }

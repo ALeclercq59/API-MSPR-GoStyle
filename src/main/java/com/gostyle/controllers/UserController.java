@@ -58,7 +58,18 @@ public class UserController {
     }
 
     @PutMapping("/addCoupon")
-    public void addCouponForUser(@PathParam("idUser") Long idUser, @PathParam("idCoupon") Long idCoupon) {
+    public void addCouponForUser(
+            @PathParam("idUser") Long idUser,
+            @PathParam("idCoupon") Long idCoupon) {
         service.addCouponForUser(idUser, idCoupon);
+    }
+
+    @PutMapping("/addUser")
+    public void addUser(
+            @PathParam("mail") String mail,
+            @PathParam("password") String password,
+            @PathParam("name") String name,
+            @PathParam("surname") String surname) {
+        service.addUser(mail, password, name, surname);
     }
 }
