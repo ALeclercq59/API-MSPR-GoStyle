@@ -45,10 +45,18 @@ class UserRepositoryTest {
     @Test
     void findByMailContainsAndPasswordContains() {
         log.trace("START findOneUser");
-        String mail = "anthony@gmail.com";
+        String mail = "ANthony@gmail.com";
         String password = "anthony";
         var user = repository.findByMailEqualsAndPasswordEquals(mail, password);
         log.trace("User : {}", user);
         log.trace("END findOneUser");
+    }
+
+    @Test
+    void findByMailIsAndPasswordIs() {
+        String mail = "ANTHONY@gmail.com";
+        String password = "ANTHONY";
+        var user = repository.findByMailIsAndPasswordIs(mail, password);
+        log.trace("User : {}", user);
     }
 }

@@ -57,6 +57,10 @@ public class UserServiceImpl implements UserService{
         return repository.findByMailEqualsAndPasswordEquals(mail, password);
     }
 
+    public User findByMailIsAndPasswordIs(String mail, String password) {
+        return repository.findByMailIsAndPasswordIs(mail, password);
+    }
+
     public void addCouponForUser(Long idUser, Long idCoupon) {
         User user = read(idUser);
         Coupon coupon = couponService.read(idCoupon);
