@@ -84,7 +84,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void addUser(){
-        service.addUser("test","test","test","test");
+    void deleteCouponForUser() {
+        service.deleteCouponForUser(1L, 3L);
     }
 }

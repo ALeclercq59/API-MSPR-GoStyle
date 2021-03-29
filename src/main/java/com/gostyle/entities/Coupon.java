@@ -26,7 +26,7 @@ public class Coupon {
     private Long compteur;
     private Long info;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "avoir",
             joinColumns = @JoinColumn(name = "id_coupon"),
             inverseJoinColumns = @JoinColumn(name = "id_user"))

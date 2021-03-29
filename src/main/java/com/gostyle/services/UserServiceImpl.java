@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -57,10 +58,6 @@ public class UserServiceImpl implements UserService{
         return repository.findByMailEqualsAndPasswordEquals(mail, password);
     }
 
-    public User findByMailIsAndPasswordIs(String mail, String password) {
-        return repository.findByMailIsAndPasswordIs(mail, password);
-    }
-
     public void addCouponForUser(Long idUser, Long idCoupon) {
         User user = read(idUser);
         Coupon coupon = couponService.read(idCoupon);
@@ -77,12 +74,20 @@ public class UserServiceImpl implements UserService{
         update(user);
     }
 
-    public void addUser(String mail, String password, String name, String surname){
-        User user = new User();
-        user.setMail(mail);
-        user.setPassword(password);
-        user.setName(name);
-        user.setSurname(surname);
-        create(user);
+    @Transactional
+    public void deleteCouponForUser(Long idUser, Long idCoupon) {
+        User user = read(idUser);
+        Coupon coupon = couponService.read(idCoupon);
+
+        List<Coupon> couponsUser = user.getCoupons();
+        couponsUser.remove(coupon);
+        user.setCoupons(couponsUser);
+
+        List<User> userCoupons = coupon.getUsers();
+        userCoupons.remove(user);
+        coupon.setUsers(userCoupons);
+
+        couponService.update(coupon);
+        update(user);
     }
 }

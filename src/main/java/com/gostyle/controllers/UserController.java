@@ -70,6 +70,11 @@ public class UserController {
             @PathParam("password") String password,
             @PathParam("name") String name,
             @PathParam("surname") String surname) {
-        service.addUser(mail, password, name, surname);
+        User user = new User();
+        user.setMail(mail);
+        user.setPassword(password);
+        user.setName(name);
+        user.setSurname(surname);
+        service.create(user);
     }
 }
