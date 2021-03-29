@@ -77,4 +77,9 @@ public class UserController {
         user.setSurname(surname);
         service.create(user);
     }
+
+    @DeleteMapping("{idUser}/deleteCoupon")
+    public void deleteCouponForUser(@PathVariable("idUser") Long idUser, @PathParam("idCoupon") Long idCoupon) {
+        service.deleteCouponForUser(idUser, idCoupon);
+    }
 }
