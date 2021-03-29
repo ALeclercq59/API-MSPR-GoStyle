@@ -78,7 +78,7 @@ public class UserController {
         service.create(user);
     }
 
-    @DeleteMapping("{idUser}/deleteCoupon")
+    @PutMapping("{idUser}/deleteCoupon")
     public void deleteCouponForUser(@PathVariable("idUser") Long idUser, @PathParam("idCoupon") Long idCoupon) {
         service.deleteCouponForUser(idUser, idCoupon);
     }
